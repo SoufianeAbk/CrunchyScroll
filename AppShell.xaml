@@ -4,11 +4,33 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:CrunchyScroll"
+    xmlns:views="clr-namespace:CrunchyScroll.Views"
     Title="CrunchyScroll">
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+    <TabBar>
+        <ShellContent
+            Title="Home"
+            Icon="home.png"
+            ContentTemplate="{DataTemplate local:MainPage}"
+            Route="MainPage" />
+
+        <ShellContent
+            Title="Producten"
+            Icon="shopping_bag.png"
+            ContentTemplate="{DataTemplate views:ProductsPage}"
+            Route="ProductsPage" />
+
+        <ShellContent
+            Title="Winkelwagen"
+            Icon="shopping_cart.png"
+            ContentTemplate="{DataTemplate views:OrderPage}"
+            Route="OrderPage" />
+
+        <ShellContent
+            Title="Geschiedenis"
+            Icon="history.png"
+            ContentTemplate="{DataTemplate views:OrderHistoryPage}"
+            Route="OrderHistoryPage" />
+    </TabBar>
 
 </Shell>
