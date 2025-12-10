@@ -84,4 +84,22 @@ namespace CrunchyScroll.Converters
             throw new NotImplementedException();
         }
     }
+
+    public class StatusToCancelVisibilityConverter : IValueConverter
+    {
+        public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
+        {
+            if (value is OrderStatus status)
+            {
+                // Show cancel button only if order is not delivered or already cancelled
+                return status != OrderStatus.Delivered && status != OrderStatus.Cancelled;
+            }
+            return false;
+        }
+
+        public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }
