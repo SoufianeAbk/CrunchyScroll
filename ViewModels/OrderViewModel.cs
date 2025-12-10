@@ -98,10 +98,10 @@ namespace CrunchyScroll.ViewModels
             // Validatie
             if (!CartItems.Any())
             {
-                await Application.Current?.MainPage?.DisplayAlert(
+                await ShowAlert(
                     "Lege winkelwagen",
                     "Je winkelwagen is leeg",
-                    "OK")!;
+                    "OK");
                 return;
             }
 
@@ -109,10 +109,10 @@ namespace CrunchyScroll.ViewModels
                 string.IsNullOrWhiteSpace(CustomerEmail) ||
                 string.IsNullOrWhiteSpace(DeliveryAddress))
             {
-                await Application.Current?.MainPage?.DisplayAlert(
+                await ShowAlert(
                     "Vereiste velden",
                     "Vul alle velden in om je bestelling te plaatsen",
-                    "OK")!;
+                    "OK");
                 return;
             }
 
@@ -127,10 +127,10 @@ namespace CrunchyScroll.ViewModels
 
                 if (order != null)
                 {
-                    await Application.Current?.MainPage?.DisplayAlert(
+                    await ShowAlert(
                         "Bestelling geplaatst!",
                         $"Je bestelling #{order.Id} is succesvol geplaatst. Totaal: €{order.TotalAmount:F2}",
-                        "OK")!;
+                        "OK");
 
                     // Reset form
                     CustomerName = string.Empty;
@@ -143,18 +143,18 @@ namespace CrunchyScroll.ViewModels
                 }
                 else
                 {
-                    await Application.Current?.MainPage?.DisplayAlert(
+                    await ShowAlert(
                         "Fout",
                         "Er is iets misgegaan bij het plaatsen van je bestelling",
-                        "OK")!;
+                        "OK");
                 }
             }
             catch (Exception ex)
             {
-                await Application.Current?.MainPage?.DisplayAlert(
+                await ShowAlert(
                     "Fout",
                     $"Er is een fout opgetreden: {ex.Message}",
-                    "OK")!;
+                    "OK");
             }
             finally
             {
@@ -164,17 +164,42 @@ namespace CrunchyScroll.ViewModels
 
         private async void OnClearCart()
         {
-            bool confirm = await Application.Current?.MainPage?.DisplayAlert(
+            bool confirm = await ShowConfirmation(
                 "Winkelmand leegmaken",
                 "Weet je zeker dat je de winkelwagen wilt leegmaken?",
                 "Ja",
-                "Nee")!;
+                "Nee");
 
             if (confirm)
             {
                 _orderService.ClearCart();
                 LoadCart();
             }
+        }
+
+        // Helper methods for dialogs
+        private async Task ShowAlert(string title, string message, string cancel)
+        {
+            await MainThread.InvokeOnMainThreadAsync(async () =>
+            {
+                if (Application.Current?.MainPage != null)
+                {
+                    await Application.Current.MainPage.DisplayAlert(title, message, cancel);
+                }
+            });
+        }
+
+        private async Task<bool> ShowConfirmation(string title, string message, string accept, string cancel)
+        {
+            var result = false;
+            await MainThread.InvokeOnMainThreadAsync(async () =>
+            {
+                if (Application.Current?.MainPage != null)
+                {
+                    result = await Application.Current.MainPage.DisplayAlert(title, message, accept, cancel);
+                }
+            });
+            return result;
         }
     }
 }

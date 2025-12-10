@@ -82,10 +82,10 @@ namespace CrunchyScroll.ViewModels
             }
             catch (Exception ex)
             {
-                await Application.Current?.MainPage?.DisplayAlert(
+                await ShowAlert(
                     "Fout",
                     $"Kon bestellingen niet laden: {ex.Message}",
-                    "OK")!;
+                    "OK");
             }
             finally
             {
@@ -102,14 +102,14 @@ namespace CrunchyScroll.ViewModels
             var itemsText = string.Join("\n", order.OrderItems.Select(i =>
                 $"• {i.Product?.Name ?? "Product"} x{i.Quantity} - €{i.SubTotal:F2}"));
 
-            await Application.Current?.MainPage?.DisplayAlert(
+            await ShowAlert(
                 $"Bestelling #{order.Id}",
                 $"Datum: {order.OrderDate:dd/MM/yyyy HH:mm}\n" +
                 $"Status: {GetStatusText(order.Status)}\n" +
                 $"Totaal: €{order.TotalAmount:F2}\n\n" +
                 $"Items:\n{itemsText}\n\n" +
                 $"Bezorgadres:\n{order.DeliveryAddress}",
-                "Sluiten")!;
+                "Sluiten");
         }
 
         private async Task OnCancelOrderAsync(Order order)
@@ -117,11 +117,11 @@ namespace CrunchyScroll.ViewModels
             if (order == null || order.Status == OrderStatus.Delivered || order.Status == OrderStatus.Cancelled)
                 return;
 
-            bool confirm = await Application.Current?.MainPage?.DisplayAlert(
+            bool confirm = await ShowConfirmation(
                 "Bestelling annuleren",
                 $"Weet je zeker dat je bestelling #{order.Id} wilt annuleren?",
                 "Ja, annuleren",
-                "Nee")!;
+                "Nee");
 
             if (confirm)
             {
@@ -129,19 +129,19 @@ namespace CrunchyScroll.ViewModels
 
                 if (success)
                 {
-                    await Application.Current?.MainPage?.DisplayAlert(
+                    await ShowAlert(
                         "Geannuleerd",
                         $"Bestelling #{order.Id} is geannuleerd.",
-                        "OK")!;
+                        "OK");
 
                     await LoadOrdersAsync();
                 }
                 else
                 {
-                    await Application.Current?.MainPage?.DisplayAlert(
+                    await ShowAlert(
                         "Fout",
                         "Kon bestelling niet annuleren.",
-                        "OK")!;
+                        "OK");
                 }
             }
         }
@@ -170,6 +170,31 @@ namespace CrunchyScroll.ViewModels
                 OrderStatus.Cancelled => "#FF0000",    // Red
                 _ => "#808080"                         // Gray
             };
+        }
+
+        // Helper methods for dialogs
+        private async Task ShowAlert(string title, string message, string cancel)
+        {
+            await MainThread.InvokeOnMainThreadAsync(async () =>
+            {
+                if (Application.Current?.MainPage != null)
+                {
+                    await Application.Current.MainPage.DisplayAlert(title, message, cancel);
+                }
+            });
+        }
+
+        private async Task<bool> ShowConfirmation(string title, string message, string accept, string cancel)
+        {
+            var result = false;
+            await MainThread.InvokeOnMainThreadAsync(async () =>
+            {
+                if (Application.Current?.MainPage != null)
+                {
+                    result = await Application.Current.MainPage.DisplayAlert(title, message, accept, cancel);
+                }
+            });
+            return result;
         }
     }
 }
