@@ -67,13 +67,25 @@ namespace CrunchyScroll.ViewModels
 
             _orderService.AddToCart(Product, Quantity);
 
-            await Application.Current?.MainPage?.DisplayAlert(
+            await ShowAlert(
                 "Toegevoegd",
                 $"{Quantity}x {Product.Name} toegevoegd aan winkelwagen",
-                "OK")!;
+                "OK");
 
             // Ga terug naar producten pagina
             await Shell.Current.GoToAsync("..");
+        }
+
+        // Helper method for dialog
+        private async Task ShowAlert(string title, string message, string cancel)
+        {
+            await MainThread.InvokeOnMainThreadAsync(async () =>
+            {
+                if (Application.Current?.MainPage != null)
+                {
+                    await Application.Current.MainPage.DisplayAlert(title, message, cancel);
+                }
+            });
         }
     }
 }

@@ -156,7 +156,7 @@ namespace CrunchyScroll.ViewModels
             await Shell.Current.GoToAsync($"ProductDetailPage", navigationParameter);
         }
 
-        private void OnAddToCart(Product product)
+        private async void OnAddToCart(Product product)
         {
             if (product == null || !product.IsInStock)
                 return;
@@ -164,10 +164,22 @@ namespace CrunchyScroll.ViewModels
             _orderService.AddToCart(product, 1);
 
             // Toon feedback
-            Application.Current?.MainPage?.DisplayAlert(
+            await ShowAlert(
                 "Toegevoegd",
                 $"{product.Name} is toegevoegd aan je winkelwagen",
                 "OK");
+        }
+
+        // Helper method for dialog
+        private async Task ShowAlert(string title, string message, string cancel)
+        {
+            await MainThread.InvokeOnMainThreadAsync(async () =>
+            {
+                if (Application.Current?.MainPage != null)
+                {
+                    await Application.Current.MainPage.DisplayAlert(title, message, cancel);
+                }
+            });
         }
     }
 }
