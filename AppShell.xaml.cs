@@ -1,15 +1,9 @@
-﻿using CrunchyScroll.Views;
+﻿namespace CrunchyScroll;
 
-namespace CrunchyScroll
+public partial class AppShell : Shell
 {
-    public partial class AppShell : Shell
+    public AppShell()
     {
-        public AppShell()
-        {
-            InitializeComponent();
-
-            // Register routes for navigation
-            Routing.RegisterRoute(nameof(ProductDetailPage), typeof(ProductDetailPage));
-        }
+        InitializeComponent();
     }
 }

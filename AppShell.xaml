@@ -5,29 +5,32 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:CrunchyScroll"
     xmlns:views="clr-namespace:CrunchyScroll.Views"
-    Title="CrunchyScroll">
+    FlyoutBehavior="Disabled">
 
     <TabBar>
-        <ShellContent
+        <!-- Home Tab -->
+        <ShellContent 
             Title="Home"
             ContentTemplate="{DataTemplate local:MainPage}"
-            Route="MainPage" />
+            Route="MainPage"/>
 
-        <ShellContent
+        <!-- Products Tab -->
+        <ShellContent 
             Title="Producten"
             ContentTemplate="{DataTemplate views:ProductsPage}"
-            Route="ProductsPage" />
+            Route="ProductsPage"/>
 
-        <ShellContent
+        <!-- Cart Tab -->
+        <ShellContent 
             Title="Winkelwagen"
             ContentTemplate="{DataTemplate views:OrderPage}"
-            Route="OrderPage" />
+            Route="OrderPage"/>
 
-        <ShellContent
-            Title="Geschiedenis"
-            Icon="history.png"
+        <!-- Order History Tab -->
+        <ShellContent 
+            Title="Bestellingen"
             ContentTemplate="{DataTemplate views:OrderHistoryPage}"
-            Route="OrderHistoryPage" />
+            Route="OrderHistoryPage"/>
     </TabBar>
 
 </Shell>
