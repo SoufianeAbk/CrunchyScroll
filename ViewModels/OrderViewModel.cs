@@ -199,7 +199,7 @@ namespace CrunchyScroll.ViewModels
 
         private static Page? GetCurrentPage()
         {
-            return Application.Current?.Windows.FirstOrDefault()?.Page ?? Application.Current?.MainPage;
+            return Application.Current?.MainPage;
         }
     }
 }
