@@ -66,16 +66,12 @@
                             </Border.GestureRecognizers>
 
                             <Grid RowDefinitions="120,Auto,Auto,Auto,Auto">
-                                <!-- Placeholder image -->
-                                <BoxView Grid.Row="0" 
-                                        Color="{StaticResource Gray200}"
-                                        CornerRadius="5"
-                                        HeightRequest="120"/>
-                                <Label Grid.Row="0"
-                                       Text="📷"
-                                       FontSize="48"
-                                       HorizontalOptions="Center"
-                                       VerticalOptions="Center"/>
+                                <!-- Product image -->
+                                <Image Grid.Row="0"
+                                       Source="{Binding ImageUrl}"
+                                       Aspect="AspectFill"
+                                       HeightRequest="120"
+                                       Margin="0,0,0,5"/>
 
                                 <Label Grid.Row="1"
                                        Text="{Binding Name}"
@@ -100,13 +96,15 @@
 
                                 <!-- Voorraad status -->
                                 <Grid Grid.Row="4">
-                                    <Label Text="Op voorraad"
+                                    <Label Text="✓ Op voorraad"
                                            TextColor="Green"
                                            FontSize="12"
+                                           FontAttributes="Bold"
                                            IsVisible="{Binding IsInStock}"/>
-                                    <Label Text="Niet op voorraad"
+                                    <Label Text="✗ Niet op voorraad"
                                            TextColor="Red"
                                            FontSize="12"
+                                           FontAttributes="Bold"
                                            IsVisible="{Binding IsInStock, Converter={StaticResource InvertedBoolConverter}}"/>
                                 </Grid>
                             </Grid>

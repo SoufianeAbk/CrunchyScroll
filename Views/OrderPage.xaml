@@ -44,17 +44,19 @@
 
                                 <Grid ColumnDefinitions="80,*,Auto" ColumnSpacing="15">
 
-                                    <!-- Product image placeholder -->
-                                    <BoxView Grid.Column="0"
-                                            Color="{StaticResource Gray200}"
-                                            CornerRadius="5"
-                                            WidthRequest="80"
-                                            HeightRequest="80"/>
-                                    <Label Grid.Column="0"
-                                           Text="📷"
-                                           FontSize="32"
-                                           HorizontalOptions="Center"
-                                           VerticalOptions="Center"/>
+                                    <!-- Product image -->
+                                    <Border Grid.Column="0"
+                                            Stroke="{StaticResource Gray300}"
+                                            StrokeThickness="1"
+                                            Padding="2">
+                                        <Border.StrokeShape>
+                                            <RoundRectangle CornerRadius="5"/>
+                                        </Border.StrokeShape>
+                                        <Image Source="{Binding Product.ImageUrl}"
+                                               Aspect="AspectFill"
+                                               WidthRequest="80"
+                                               HeightRequest="80"/>
+                                    </Border>
 
                                     <!-- Product info -->
                                     <VerticalStackLayout Grid.Column="1" Spacing="5">
