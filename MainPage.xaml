@@ -237,7 +237,6 @@
                                    VerticalOptions="Center"/>
                         </Grid>
                     </VerticalStackLayout>
-                </VerticalStackLayout>
 
                 <!-- CTA Button -->
                 <Button Text="Start je Bestelling"

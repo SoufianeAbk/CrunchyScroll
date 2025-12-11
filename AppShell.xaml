@@ -10,19 +10,16 @@
     <TabBar>
         <ShellContent
             Title="Home"
-            Icon="home.png"
             ContentTemplate="{DataTemplate local:MainPage}"
             Route="MainPage" />
 
         <ShellContent
             Title="Producten"
-            Icon="shopping_bag.png"
             ContentTemplate="{DataTemplate views:ProductsPage}"
             Route="ProductsPage" />
 
         <ShellContent
             Title="Winkelwagen"
-            Icon="shopping_cart.png"
             ContentTemplate="{DataTemplate views:OrderPage}"
             Route="OrderPage" />
 
