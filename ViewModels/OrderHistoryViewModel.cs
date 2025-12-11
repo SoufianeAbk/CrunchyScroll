@@ -175,26 +175,26 @@ namespace CrunchyScroll.ViewModels
         // Helper methods for dialogs
         private async Task ShowAlert(string title, string message, string cancel)
         {
-            await MainThread.InvokeOnMainThreadAsync(async () =>
+            var page = GetCurrentPage();
+            if (page != null)
             {
-                if (Application.Current?.MainPage != null)
-                {
-                    await Application.Current.MainPage.DisplayAlert(title, message, cancel);
-                }
-            });
+                await page.DisplayAlert(title, message, cancel);
+            }
         }
 
         private async Task<bool> ShowConfirmation(string title, string message, string accept, string cancel)
         {
-            var result = false;
-            await MainThread.InvokeOnMainThreadAsync(async () =>
+            var page = GetCurrentPage();
+            if (page != null)
             {
-                if (Application.Current?.MainPage != null)
-                {
-                    result = await Application.Current.MainPage.DisplayAlert(title, message, accept, cancel);
-                }
-            });
-            return result;
+                return await page.DisplayAlert(title, message, accept, cancel);
+            }
+            return false;
+        }
+
+        private static Page? GetCurrentPage()
+        {
+            return Application.Current?.Windows.FirstOrDefault()?.Page ?? Application.Current?.MainPage;
         }
     }
 }
