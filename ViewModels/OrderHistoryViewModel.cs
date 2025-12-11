@@ -46,9 +46,9 @@ namespace CrunchyScroll.ViewModels
         public ICommand CancelOrderCommand { get; }
         public ICommand RefreshCommand { get; }
 
-        public OrderHistoryViewModel()
+        public OrderHistoryViewModel(OrderService orderService)
         {
-            _orderService = new OrderService();
+            _orderService = orderService;
 
             Title = "Bestelgeschiedenis";
 

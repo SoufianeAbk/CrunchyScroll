@@ -63,10 +63,10 @@ namespace CrunchyScroll.ViewModels
         public ICommand ProductTappedCommand { get; }
         public ICommand AddToCartCommand { get; }
 
-        public ProductsViewModel()
+        public ProductsViewModel(ProductService productService, OrderService orderService)
         {
-            _productService = new ProductService();
-            _orderService = new OrderService();
+            _productService = productService;
+            _orderService = orderService;
 
             Title = "Producten";
 

@@ -35,9 +35,9 @@ namespace CrunchyScroll.ViewModels
         public ICommand DecreaseQuantityCommand { get; }
         public ICommand AddToCartCommand { get; }
 
-        public ProductDetailViewModel()
+        public ProductDetailViewModel(OrderService orderService)
         {
-            _orderService = new OrderService();
+            _orderService = orderService;
 
             IncreaseQuantityCommand = new Command(OnIncreaseQuantity);
             DecreaseQuantityCommand = new Command(OnDecreaseQuantity);

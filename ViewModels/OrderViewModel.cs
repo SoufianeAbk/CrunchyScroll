@@ -48,9 +48,9 @@ namespace CrunchyScroll.ViewModels
         public ICommand PlaceOrderCommand { get; }
         public ICommand ClearCartCommand { get; }
 
-        public OrderViewModel()
+        public OrderViewModel(OrderService orderService)
         {
-            _orderService = new OrderService();
+            _orderService = orderService;
 
             Title = "Winkelwagen";
 
