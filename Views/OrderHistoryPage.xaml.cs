@@ -6,10 +6,10 @@ public partial class OrderHistoryPage : ContentPage
 {
     private readonly OrderHistoryViewModel _viewModel;
 
-    public OrderHistoryPage()
+    public OrderHistoryPage(OrderHistoryViewModel viewModel)
     {
         InitializeComponent();
-        _viewModel = new OrderHistoryViewModel();
+        _viewModel = viewModel;
         BindingContext = _viewModel;
     }
 

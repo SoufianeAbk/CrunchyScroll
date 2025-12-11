@@ -6,10 +6,10 @@ public partial class ProductsPage : ContentPage
 {
     private readonly ProductsViewModel _viewModel;
 
-    public ProductsPage()
+    public ProductsPage(ProductsViewModel viewModel)
     {
         InitializeComponent();
-        _viewModel = new ProductsViewModel();
+        _viewModel = viewModel;
         BindingContext = _viewModel;
     }
 

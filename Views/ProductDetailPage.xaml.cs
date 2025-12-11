@@ -4,9 +4,9 @@ namespace CrunchyScroll.Views;
 
 public partial class ProductDetailPage : ContentPage
 {
-    public ProductDetailPage()
+    public ProductDetailPage(ProductDetailViewModel viewModel)
     {
         InitializeComponent();
-        BindingContext = new ProductDetailViewModel();
+        BindingContext = viewModel;
     }
 }
